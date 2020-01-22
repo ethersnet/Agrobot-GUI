@@ -290,7 +290,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
             }
             $(".jsWidgetContainer").css("z-index", "20");
             this.widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
-            this._WidgetSettings(this.widgetInstanceId,false,true);
+            this._WidgetSettings(this.widgetInstanceId,false);
             $(e.toElement).closest(".jsWidgetContainer").addClass("jsMouseActive");
             this.lastX = e.pageX;
             this.lastY = e.pageY;
@@ -704,6 +704,7 @@ function events(ros) {
     let widgetInstanceEvents = new widget_instance_1.WidgetInstanceEvents(ros);
     let rosEvents = new ros_1.RosEvents(ros);
     let workspace = new workspace_1.WorkspaceEvents();
+    workspace._LoadWorkspace(1);
     rosEvents.Connect();
 }
 init();
