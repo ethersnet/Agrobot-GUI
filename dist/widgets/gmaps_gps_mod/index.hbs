@@ -1,0 +1,32 @@
+<div class="ros-widget" data-widget-name="google-maps-gps-viewer-mod" data-min-height="300" data-min-width="400" data-max-height="600"
+  data-max-width="800" data-height="300" data-width="400">
+
+  <!--  META Tags to describe topics subscription -->
+  <meta data-ros-topic="1" data-ros-topic-id="1" data-ros-topic-desc="Topic to subscribe" data-ros-topic-type="sensor_msgs/NavSatFix"
+    data-ros-topic-chng="onchange" data-ros-topic-slctd="" />
+
+  <!-- The content which could be manipulated by widget class -->
+  <div class="mapContainer">
+    <div class="map"></div>
+    <div class="actions">
+      <a href="#" class="jsCenterMap btn btn-view">Go to GPS position</a>
+      <a href="#" class="jsSetRegion btn btn-view">Edit</a>
+      <a href="#" class="jsSendRobot btn btn-view">Send to Robot</a>
+      <div class="slidecontainer">
+        <input type="range" min=".00005" max=".0002" value=".0001" step = ".00001" class="slider" id="myRange">
+        <p>Value: <span id="demo"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
