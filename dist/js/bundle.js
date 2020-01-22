@@ -220,7 +220,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         };
         this.WidgetSettings = (e) => {
             let widgetInstanceId = parseInt($(e.toElement).attr("data-widget-instance-id"));
-            this._WidgetSettings(widgetInstanceId);
+            this._WidgetSettings(widgetInstanceId,false,true);
             e.preventDefault();
         };
         this.WidgetContainerDblClick = (e) => {
@@ -290,7 +290,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
             }
             $(".jsWidgetContainer").css("z-index", "20");
             this.widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
-            this._WidgetSettings(this.widgetInstanceId);
+            this._WidgetSettings(this.widgetInstanceId,false,true);
             $(e.toElement).closest(".jsWidgetContainer").addClass("jsMouseActive");
             this.lastX = e.pageX;
             this.lastY = e.pageY;
@@ -339,7 +339,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         this.DelegateEvent(document, "mouseup", this.MouseUp);
     }
     ;
-    _WidgetSettings(widgetInstanceId) {
+    _WidgetSettings(widgetInstanceId, show = true, hide = false) {
         $("#widgetSettings").val(widgetInstanceId);
         $(".jsSettingsSelection").html("");
         $(".jsWidgetContainer").removeClass("jsSettingsActive");
@@ -351,7 +351,10 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         this._WidgetSettingsParams(widgetInstanceId);
         this._WidgetSettingsActionServers(widgetInstanceId);
         // frontend actions
-        this.Frontend.ShowWidgetSettings();
+        if (show)
+            this.Frontend.ShowWidgetSettings();
+        if (hide)
+            this.Frontend.HideWidgetSettings();
         this._WidgetSettingsRefresh();
     }
     _WidgetSettingsSubscriptions(widgetInstanceId) {
