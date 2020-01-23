@@ -10,7 +10,7 @@ var WidgetGoogleMapsGpsViewerMod = function (widgetInstanceId) {
   this.clbkCreated = function () {
     self.param1 = new ROSLIB.Param({
       ros: ros,
-      name: "/rosapi/gps-waypoints"
+      name: "/rosapi/gps_waypoints"
     });
     self.generateGpsVisualizer();
     $(document).delegate(self.selector + " .jsSetRegion", "click", self.setRegion);
