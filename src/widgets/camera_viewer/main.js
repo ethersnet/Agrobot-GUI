@@ -7,6 +7,8 @@ var WidgetCameraViewer = function (widgetInstanceId) {
   // Mandatory callback methods
   this.clbkCreated = function () {
     self.host = $("#jsRosUrl").val().split("//")[1].split(":")[0];
+    self.onchange("/camera/color/image_raw");
+    self.clbkResized($(".jsMjpeg").width(),$(".jsMjpeg").height());
   };
   this.clbkConfirm = function() {
 
