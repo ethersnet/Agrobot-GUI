@@ -62,6 +62,7 @@ var WidgetGoogleMapsGpsViewerMod = function (widgetInstanceId) {
       lng: parseFloat(message.longitude)
     };
     self.gpsVars.marker.setPosition(self.latLng);
+    self.centerMap();
   }
 
   // helper properties and methods
@@ -192,9 +193,6 @@ var WidgetGoogleMapsGpsViewerMod = function (widgetInstanceId) {
       self.map_region.addWayPoint(clickEvent.latLng);
     });
     
-    setTimeout(function () {
-      self.centerMap();
-    }, 1000);
   };
 };
 
