@@ -220,7 +220,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         };
         this.WidgetSettings = (e) => {
             let widgetInstanceId = parseInt($(e.toElement).attr("data-widget-instance-id"));
-            this._WidgetSettings(widgetInstanceId,false,true);
+            this._WidgetSettings(widgetInstanceId);
             e.preventDefault();
         };
         this.WidgetContainerDblClick = (e) => {
@@ -290,7 +290,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
             }
             $(".jsWidgetContainer").css("z-index", "20");
             this.widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
-            this._WidgetSettings(this.widgetInstanceId,false);
+            this._WidgetSettings(this.widgetInstanceId);
             $(e.toElement).closest(".jsWidgetContainer").addClass("jsMouseActive");
             this.lastX = e.pageX;
             this.lastY = e.pageY;
@@ -339,7 +339,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         this.DelegateEvent(document, "mouseup", this.MouseUp);
     }
     ;
-    _WidgetSettings(widgetInstanceId, show = true, hide = false) {
+    _WidgetSettings(widgetInstanceId) {
         $("#widgetSettings").val(widgetInstanceId);
         $(".jsSettingsSelection").html("");
         $(".jsWidgetContainer").removeClass("jsSettingsActive");
@@ -351,10 +351,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         this._WidgetSettingsParams(widgetInstanceId);
         this._WidgetSettingsActionServers(widgetInstanceId);
         // frontend actions
-        if (show)
-            this.Frontend.ShowWidgetSettings();
-        if (hide)
-            this.Frontend.HideWidgetSettings();
+        this.Frontend.ShowWidgetSettings();
         this._WidgetSettingsRefresh();
     }
     _WidgetSettingsSubscriptions(widgetInstanceId) {
@@ -704,7 +701,6 @@ function events(ros) {
     let widgetInstanceEvents = new widget_instance_1.WidgetInstanceEvents(ros);
     let rosEvents = new ros_1.RosEvents(ros);
     let workspace = new workspace_1.WorkspaceEvents();
-    workspace._LoadWorkspace(1);
     rosEvents.Connect();
 }
 init();
