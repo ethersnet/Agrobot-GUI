@@ -66,6 +66,7 @@ export class Workspace {
     wg = new WidgetGroup("Development");
     new Widget(wg.id, "New Widget", "NewWidget", "./widgets/new_widget");
     new Widget(wg.id, "Maps Mod", "GoogleMapsGpsViewerMod", "./widgets/gmaps_gps_mod");
+    new Widget(wg.id, "Battery Indicator", "GoogleMapsGpsViewerMod", "./widgets/gmaps_gps_mod");
 
   }
 

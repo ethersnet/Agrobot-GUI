@@ -27,3 +27,49 @@ div[data-widget-name='topic-subscriber'] {
     padding: 10px;
   }
 }
+
+#batteryBody {
+  float: left;
+  width: 200px;
+  height: 75px;
+  border: 10px black solid;
+}
+.container {
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+.batteryEnd {
+  float: left;
+  height: 95px;
+  width: 15px;
+}
+.batteryEnd div {
+  width: 15px;
+  height: 35px;
+  margin-top: 20px;
+  margin-left: 5px;
+  background-color: black;
+}
+#indicator {
+  height: 100%;
+  width: 50%;
+}
+#indicator.charging {
+  background-color: rgb(1, 129, 33);
+}
+#indicator.high {
+  background-color: rgb(47, 202, 0);
+}
+#indicator.mid {
+  background-color: rgb(221, 224, 20);
+}
+#indicator.low {
+  background-color: rgb(233, 36, 36);
+}
+
+#percent {
+  margin-left: 5px;
+  font-size: x-large;
+}

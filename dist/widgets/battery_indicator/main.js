@@ -5,7 +5,7 @@ var WidgetBatteryIndicator = function (widgetInstanceId) {
   this.selector = ".jsWidgetContainer[data-widget-instance-id=" + self.widgetInstanceId + "]";
 
   // Mandatory callback methods
-  this.clbkCreated = function () { };
+  this.clbkCreated = function () { self.onchange1("/republish/voltage"); };
   this.clbkConfirm = function () { };
   this.clbkResized = function () { };
   this.clbkMoved = function () { };
@@ -42,6 +42,19 @@ var WidgetBatteryIndicator = function (widgetInstanceId) {
       $(elem).html("");
       self.debugObjectInsideElement(elem, message);
       last_datetime = datetime;
+      var percentage = ((2000 - message.data)/2000*100);
+      var batteryIndicator = document.querySelector("#indicator");
+
+      batteryIndicator.style.width =  percentage + "%";
+      if (percentage >= 80) {
+        batteryIndicator.className = "high";
+      } else if (percentage >= 50) {
+        batteryIndicator.className = "mid";
+      } else {
+        batteryIndicator.className = "low";
+      }
+      var percent = document.querySelector("#percent");
+      percent.innerHTML = Math.round(percentage) + "%";
     }
   }
   // Adjustable params

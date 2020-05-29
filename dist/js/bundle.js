@@ -832,6 +832,7 @@ class Workspace {
         wg = new widget_group_1.WidgetGroup("Development");
         new widget_1.Widget(wg.id, "New Widget", "NewWidget", "./widgets/new_widget");
         new widget_1.Widget(wg.id, "Maps Mod", "GoogleMapsGpsViewerMod", "./widgets/gmaps_gps_mod");
+        new widget_1.Widget(wg.id, "Battery Indicator", "BatteryIndicator", "./widgets/battery_indicator");
     }
     _clearWorkspace() {
         frontend_1.frontend.ClearWorkspace();
