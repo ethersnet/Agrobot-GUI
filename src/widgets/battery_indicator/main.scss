@@ -1,6 +1,6 @@
 .cssWidgetContainer[data-widget-conf='0'] {
   div[data-widget-name='topic-subscriber'] {
-    border: 1px solid #333;
+    border: 1px solid white;
   }
 }
 
@@ -11,7 +11,7 @@ div[data-widget-name='topic-subscriber'] {
   overflow: hidden;
   div.header {
     background-color: #aee;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid white;
     p {
       text-align: center;
       padding: 0 10px;
@@ -32,7 +32,7 @@ div[data-widget-name='topic-subscriber'] {
   float: left;
   width: 200px;
   height: 75px;
-  border: 10px black solid;
+  border: 10px white solid;
 }
 .container {
   width: 240px;
@@ -50,7 +50,7 @@ div[data-widget-name='topic-subscriber'] {
   height: 35px;
   margin-top: 20px;
   margin-left: 5px;
-  background-color: black;
+  background-color: white;
 }
 #indicator {
   height: 100%;

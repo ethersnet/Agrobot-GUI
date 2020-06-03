@@ -8,6 +8,7 @@ div[data-widget-name='google-maps-gps-viewer-mod'] {
   div.mapContainer {
     width: 100%;
     height: 100%;
+    background-color: white;
   }
   div.mapContainer div.map {
     margin: 0;
@@ -22,5 +23,8 @@ div[data-widget-name='google-maps-gps-viewer-mod'] {
     padding: 10px;
     width: 100%;
     height: 15%;
+  }
+  div.slidecontainer {
+    padding:10px
   }
 }

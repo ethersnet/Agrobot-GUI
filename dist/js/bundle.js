@@ -704,7 +704,9 @@ function events(ros) {
     let widgetInstanceEvents = new widget_instance_1.WidgetInstanceEvents(ros);
     let rosEvents = new ros_1.RosEvents(ros);
     let workspace = new workspace_1.WorkspaceEvents();
-    workspace._LoadWorkspace(1);
+    try {
+        workspace._LoadWorkspace(1);
+    } catch (e) {}
     rosEvents.Connect();
 }
 init();
@@ -1319,7 +1321,13 @@ class Storage {
         catch (e) {
             alert(e);
         }
-        return rosweb.Workspaces;
+        function sortById(obj1, obj2) {
+            if (obj1.id < obj2.id)
+                return -1;
+            if (obj1.id > obj2.id)
+                return 1;
+        }
+        return rosweb.Workspaces.sort(sortById);
     }
     GetWorkspace(workspace_id) {
         let toReturn;
@@ -1332,20 +1340,34 @@ class Storage {
     }
     // New
     NewWorkspace(name) {
-        let id;
+        let id = 0;
         let workspaces = this.GetWorkspaces();
-        function sortByIdDesc(obj1, obj2) {
-            if (obj1.id > obj2.id)
-                return -1;
+        function sortById(obj1, obj2) {
             if (obj1.id < obj2.id)
+                return -1;
+            if (obj1.id > obj2.id)
                 return 1;
         }
+
         if (workspaces.length == 0) {
             id = 1;
         }
         else {
-            let lastWorkspace = workspaces.sort(sortByIdDesc)[0];
-            id = lastWorkspace.id + 1;
+            let past_id = 0;
+            let sortedWorkspaces = workspaces.sort(sortById);
+            for (var i = 0; i < sortedWorkspaces.length; i++) {
+                if (sortedWorkspaces[i].id != past_id + 1) {
+                    console.log(sortedWorkspaces[i].id);
+                    console.log(past_id);
+                    id = past_id + 1;
+                    break;
+                } else {
+                    past_id = sortedWorkspaces[i].id;
+                }
+            }
+            if (id == 0) {
+                id = sortedWorkspaces.length;
+            }
         }
         let workspace = new serialized_workspace_1.SerializedWorkspace();
         workspace.id = id;

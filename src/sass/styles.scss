@@ -137,6 +137,11 @@ a.flat-btn {
       opacity: 0.5;
     }
   }
+  &.cssRosLogo {
+    height: $height;
+    content:url(img/logotext.png);
+    background-repeat: no-repeat;
+  }
   &.alert::after {
     position:absolute;
     margin-left:$height - 12px;
