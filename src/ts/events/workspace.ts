@@ -44,6 +44,10 @@ export class WorkspaceEvents extends EventsParent {
     storage.SaveWorkspace(workspace);
   }
 
+  public LoadInitialWorkspace() {
+    this._LoadWorkspace(1);
+  }
+
   public LoadWorkspace = (e?: MouseEvent) => {
     let workspace_id: number = parseInt($(e.toElement).attr("data-workspace-id"));
     this._LoadWorkspace(workspace_id);

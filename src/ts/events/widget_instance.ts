@@ -56,10 +56,10 @@ export class WidgetInstanceEvents extends EventsParent {
 
   public WidgetSettings = (e?: MouseEvent) => {
     let widgetInstanceId: number = parseInt($(e.toElement).attr("data-widget-instance-id"));
-    this._WidgetSettings(widgetInstanceId);
+    this._WidgetSettings(widgetInstanceId, false, true);
     e.preventDefault();
   };
-  private _WidgetSettings(widgetInstanceId: number): void {
+  private _WidgetSettings(widgetInstanceId: number, show: boolean, hide: boolean): void {
     $("#widgetSettings").val(widgetInstanceId);
     $(".jsSettingsSelection").html("");
 
@@ -74,7 +74,10 @@ export class WidgetInstanceEvents extends EventsParent {
     this._WidgetSettingsActionServers(widgetInstanceId);
 
     // frontend actions
-    this.Frontend.ShowWidgetSettings();
+    if (show)
+            this.Frontend.ShowWidgetSettings();
+    if (hide)
+        this.Frontend.HideWidgetSettings();
     this._WidgetSettingsRefresh();
   }
   private _WidgetSettingsSubscriptions(widgetInstanceId: number): void {
@@ -140,7 +143,7 @@ export class WidgetInstanceEvents extends EventsParent {
     let widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
     this.ToggleMovable();
     if ($(".jsToggleMovable").hasClass("active")) {
-      this._WidgetSettings(widgetInstanceId);
+      this._WidgetSettings(widgetInstanceId, true, false);
     }
     document.getSelection().removeAllRanges();
     e.preventDefault();
@@ -329,7 +332,7 @@ export class WidgetInstanceEvents extends EventsParent {
     }
     $(".jsWidgetContainer").css("z-index", "20");
     this.widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
-    this._WidgetSettings(this.widgetInstanceId);
+    this._WidgetSettings(this.widgetInstanceId, true, false);
     $(e.toElement).closest(".jsWidgetContainer").addClass("jsMouseActive");
     this.lastX = e.pageX;
     this.lastY = e.pageY;

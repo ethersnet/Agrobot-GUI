@@ -98,8 +98,8 @@ gulp.task('start', function () {
       .pipe(source('bundle.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
-      /*.pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('dist/js'));*/
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('dist/js'));
   });
   gulp.task('watchts', ['ts'], function () {
     gulp.watch(paths.ts, ['ts']);

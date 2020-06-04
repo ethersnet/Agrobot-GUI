@@ -220,14 +220,14 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         };
         this.WidgetSettings = (e) => {
             let widgetInstanceId = parseInt($(e.toElement).attr("data-widget-instance-id"));
-            this._WidgetSettings(widgetInstanceId,false,true);
+            this._WidgetSettings(widgetInstanceId, false, true);
             e.preventDefault();
         };
         this.WidgetContainerDblClick = (e) => {
             let widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
             this.ToggleMovable();
             if ($(".jsToggleMovable").hasClass("active")) {
-                this._WidgetSettings(widgetInstanceId);
+                this._WidgetSettings(widgetInstanceId, true, false);
             }
             document.getSelection().removeAllRanges();
             e.preventDefault();
@@ -290,7 +290,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
             }
             $(".jsWidgetContainer").css("z-index", "20");
             this.widgetInstanceId = parseInt($(e.toElement).closest(".jsWidgetContainer").attr("data-widget-instance-id"));
-            this._WidgetSettings(this.widgetInstanceId,false);
+            this._WidgetSettings(this.widgetInstanceId, true, false);
             $(e.toElement).closest(".jsWidgetContainer").addClass("jsMouseActive");
             this.lastX = e.pageX;
             this.lastY = e.pageY;
@@ -339,7 +339,7 @@ class WidgetInstanceEvents extends events_1.EventsParent {
         this.DelegateEvent(document, "mouseup", this.MouseUp);
     }
     ;
-    _WidgetSettings(widgetInstanceId, show = true, hide = false) {
+    _WidgetSettings(widgetInstanceId, show, hide) {
         $("#widgetSettings").val(widgetInstanceId);
         $(".jsSettingsSelection").html("");
         $(".jsWidgetContainer").removeClass("jsSettingsActive");
@@ -656,6 +656,9 @@ class WorkspaceEvents extends events_1.EventsParent {
         workspace.data = workspace_1.currentWorkspace.extractData();
         storage_1.storage.SaveWorkspace(workspace);
     }
+    LoadInitialWorkspace() {
+        this._LoadWorkspace(1);
+    }
     _LoadWorkspace(workspace_id) {
         let workspace = storage_1.storage.GetWorkspace(workspace_id);
         workspace_1.currentWorkspace.loadWorkspace(workspace);
@@ -705,8 +708,9 @@ function events(ros) {
     let rosEvents = new ros_1.RosEvents(ros);
     let workspace = new workspace_1.WorkspaceEvents();
     try {
-        workspace._LoadWorkspace(1);
-    } catch (e) {}
+        workspace.LoadInitialWorkspace();
+    }
+    catch (e) { }
     rosEvents.Connect();
 }
 init();
@@ -1321,13 +1325,7 @@ class Storage {
         catch (e) {
             alert(e);
         }
-        function sortById(obj1, obj2) {
-            if (obj1.id < obj2.id)
-                return -1;
-            if (obj1.id > obj2.id)
-                return 1;
-        }
-        return rosweb.Workspaces.sort(sortById);
+        return rosweb.Workspaces;
     }
     GetWorkspace(workspace_id) {
         let toReturn;
@@ -1340,34 +1338,20 @@ class Storage {
     }
     // New
     NewWorkspace(name) {
-        let id = 0;
+        let id;
         let workspaces = this.GetWorkspaces();
-        function sortById(obj1, obj2) {
-            if (obj1.id < obj2.id)
-                return -1;
+        function sortByIdDesc(obj1, obj2) {
             if (obj1.id > obj2.id)
+                return -1;
+            if (obj1.id < obj2.id)
                 return 1;
         }
-
         if (workspaces.length == 0) {
             id = 1;
         }
         else {
-            let past_id = 0;
-            let sortedWorkspaces = workspaces.sort(sortById);
-            for (var i = 0; i < sortedWorkspaces.length; i++) {
-                if (sortedWorkspaces[i].id != past_id + 1) {
-                    console.log(sortedWorkspaces[i].id);
-                    console.log(past_id);
-                    id = past_id + 1;
-                    break;
-                } else {
-                    past_id = sortedWorkspaces[i].id;
-                }
-            }
-            if (id == 0) {
-                id = sortedWorkspaces.length;
-            }
+            let lastWorkspace = workspaces.sort(sortByIdDesc)[0];
+            id = lastWorkspace.id + 1;
         }
         let workspace = new serialized_workspace_1.SerializedWorkspace();
         workspace.id = id;
