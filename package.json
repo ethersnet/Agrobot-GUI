@@ -9,7 +9,7 @@
   "author": "me",
   "license": "ISC",
   "devDependencies": {
-    "babelify": "^7.3.0",
+    "babelify": "^10.0.0",
     "browserify": "^13.0.1",
     "glob": "^7.1.1",
     "gulp": "^3.9.1",
